@@ -12,13 +12,14 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import java.io.File;
 import java.io.IOException;
 import java.util.Date;
+import java.util.HashMap;
 
 @RestController
 public class UploadController {
 
 
     @PostMapping("/upload")
-    public String handleFileUpload(@RequestParam("file") MultipartFile file) throws IOException {
+    public HashMap handleFileUpload(@RequestParam("file") MultipartFile file) throws IOException {
 
         System.out.println("user.dir : "+System.getProperty("user.dir"));
 
@@ -28,12 +29,17 @@ public class UploadController {
             new File(path).mkdirs();
         }
 
-        File newFile=new File(path+file.getOriginalFilename());
+        File newFile=new File(path+"aa");
+//        File newFile=new File(path+file.getOriginalFilename());
 //        //通过CommonsMultipartFile的方法直接写文件（注意这个时候）
         file.transferTo(newFile);
 //        long  endTime=System.currentTimeMillis();
 //        System.out.println("方法二的运行时间："+String.valueOf(endTime-startTime)+"ms");
-        return "/success2";
+
+        HashMap map = new HashMap();
+        map.put("key1", "value1");
+
+        return map;
     }
 
 
